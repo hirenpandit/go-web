@@ -25,3 +25,13 @@ The is structured based on the guidline provided [here](https://go.dev/doc/modul
     - https://pkg.go.dev/cmd/go#hdr-Internal_Directories
 
 The idea is the package can be imported by nearby code not any other package
+
+
+### HTMX
+
+Configured web-server to serve HTML templates on root endpoint i.e / using html/template package.
+`index.html` file is created with HTMX script tag.
+
+
+### Middleware
+Added middleware to log message of endpoint, HTTP method and time taken to serve response from the endpoint

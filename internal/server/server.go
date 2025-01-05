@@ -2,14 +2,15 @@ package server
 
 import (
 	"go-web/internal/handlers"
+	"go-web/internal/server/middleware"
 	"log"
 	"net/http"
 )
 
 func Initialize() {
 	server := http.NewServeMux()
-	server.Handle("/", handlers.RootHandler())
-	server.Handle("/message", handlers.Message())
+	server.Handle("/", middleware.Logger(handlers.RootHandler()))
+	server.Handle("/message", middleware.Logger(handlers.Message()))
 
 	err := http.ListenAndServe(":8080", server)
 	if err != nil {
