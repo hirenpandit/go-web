@@ -1,7 +1,7 @@
 package server
 
 import (
-	"com.example/go-web/internal/handlers"
+	"go-web/internal/handlers"
 	"log"
 	"net/http"
 )
