@@ -5,8 +5,8 @@ say_hello:
 clean:
 	@rm -rf build
 build:
-	@go build -o build/go-web ./cmd/go-web
+	@go build -o build/ -v ./...
 run:
-	@./build/go-web
-run-web:
+	@./build/htmx-web
+run-dev:
 	@go run ./cmd/htmx-web/*.go
