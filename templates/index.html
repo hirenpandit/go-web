@@ -4,6 +4,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<div hx-get="/message" class="flex flex-row p-10">Get Some HTML - {{.Name}}</div>
+<div>
+    <div class="flex flex-col items-center justify-center h-screen">
+        <div class="flex flex-row items-center justify-center gap-2 p-2">
+            <label>Team Name</label>
+            <input class="border-solid border-4" type="text" title="Team Name" value="" name="teamname" id="teamname"/>
+        </div>
+        <div class="flex flex-row items-center justify-center gap-2">
+            <label>User</label>
+            <input class="border-solid border-4" type="text" title="User" value="" name="user" id="user"/>
+        </div>
+    </div>
+</div>
 </body>
 </html>

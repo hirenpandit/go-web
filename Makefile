@@ -1,12 +1,11 @@
-.PHONY: run
-all: clean build run
+run: clean build run
 say_hello:
 	@echo "Hello, world"
 clean:
-	@rm -rf build
+	@rm -rf bin 
 build:
-	@go build -o build/ -v ./...
+	@go build -o bin/ -v ./...
 run:
-	@./build/htmx-web
-run-dev:
-	@go run ./cmd/htmx-web/*.go
+	@./bin/htmx-web
+air:
+	@/Users/hirenpandit/go/bin/air
