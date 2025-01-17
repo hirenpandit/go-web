@@ -13,10 +13,7 @@ func RootHandler() http.Handler {
 		if err != nil {
 			log.Printf("Error parsign template file %s : %v", "templates/index.html", err)
 		}
-		res := map[string]interface{}{
-			"Name": "Hiren",
-		}
-		err = temp.Execute(w, res)
+		err = temp.Execute(w, nil)
 		if err != nil {
 			log.Printf("Error parsign template file %s : %v", "templates/index.html", err)
 		}
