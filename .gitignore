@@ -1,1 +1,7 @@
 .idea/**
+
+#ignore go related files
+go.sum
+
+# Ignore environment variable containing sensitive information
+.env
