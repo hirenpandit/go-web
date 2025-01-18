@@ -3,29 +3,16 @@ package anthropic
 import (
 	"context"
 	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
-	"github.com/joho/godotenv"
 	"log"
-	"os"
 )
 
-func init() {
-	log.Printf("loading environment variables")
-	if err := godotenv.Load(".env"); err != nil {
-		log.Printf("error loading .env file %v", err)
-	}
-}
-
-func SendMessage() string {
-	client := anthropic.NewClient(
-		option.WithAPIKey(os.Getenv("ANTHROPIC_API_KEY")),
-	)
-
+func SendMessage(query string) string {
+	client := NewClient()
 	message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
 		Model:     anthropic.F(anthropic.ModelClaude3_5SonnetLatest),
 		MaxTokens: anthropic.F(int64(1024)),
 		Messages: anthropic.F([]anthropic.MessageParam{
-			anthropic.NewUserMessage(anthropic.NewTextBlock("What is a quaternion?")),
+			anthropic.NewUserMessage(anthropic.NewTextBlock(query)),
 		}),
 	})
 
@@ -33,4 +20,33 @@ func SendMessage() string {
 		log.Printf("error sending message: %v", err)
 	}
 	return message.Content[0].Text
+}
+
+func SendMessageWithStreamResponse(query string) {
+	log.Println("sending query to anthropic >>", query)
+	client := NewClient()
+	stream := client.Messages.NewStreaming(context.TODO(), anthropic.MessageNewParams{
+		Model:     anthropic.F(anthropic.ModelClaude3_5SonnetLatest),
+		MaxTokens: anthropic.F(int64(1024)),
+		Messages: anthropic.F([]anthropic.MessageParam{
+			anthropic.NewUserMessage(anthropic.NewTextBlock(query)),
+		}),
+	})
+
+	message := anthropic.Message{}
+
+	for stream.Next() {
+		event := stream.Current()
+		err := message.Accumulate(event)
+		if err != nil {
+			log.Printf("error sending message: %v", err)
+		}
+		switch delta := event.Delta.(type) {
+		case anthropic.ContentBlockDeltaEventDelta:
+			if delta.Text != "" {
+				log.Printf(">> %s", delta.Text)
+			}
+		}
+	}
+
 }

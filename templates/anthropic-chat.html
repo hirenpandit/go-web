@@ -7,7 +7,8 @@
 <div class="font-mono">
     <div class="mt-10 grid items-center justify-center gap-2">
         <label for="message"></label><textarea name="message" id="message" cols="30" rows="10">{{.Message}}</textarea>
-        <button>Send</button>
+        <button hx-get="/ai/query" hx-target="#result" hx-include="#message">Send</button>
+        <div id="result"></div>
     </div>
 </div>
 </body>
