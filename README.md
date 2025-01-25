@@ -35,3 +35,11 @@ Configured web-server to serve HTML templates on root endpoint i.e / using html/
 
 ### Middleware
 Added middleware to log message of endpoint, HTTP method and time taken to serve response from the endpoint
+
+
+### Websocket
+Added support for websocket with gorilla websocket package. Follow below steps to test sending and receiving message using websocket
+
+1. Open console in browser
+2. Define websocket variable `var ws = new Websocket("ws://localhost:8080/ws")`
+3. Send message `ws.send("test")`
