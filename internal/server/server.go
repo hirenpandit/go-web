@@ -4,6 +4,7 @@ import (
 	"go-web/internal/handlers"
 	"go-web/internal/handlers/ai"
 	"go-web/internal/server/middleware"
+	"go-web/internal/websocket"
 	"log"
 	"net/http"
 )
@@ -16,6 +17,9 @@ func Initialize() {
 	//AI chat related handlers
 	server.Handle("/chat", middleware.Logger(ai.ChatHandler()))
 	server.Handle("/ai/query", middleware.Logger(ai.QueryHandler()))
+
+	//websocket
+	server.Handle("/ws", websocket.Handler())
 
 	err := http.ListenAndServe(":8080", server)
 	if err != nil {
