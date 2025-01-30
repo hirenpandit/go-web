@@ -5,3 +5,5 @@ go.sum
 
 # Ignore environment variable containing sensitive information
 .env
+bin/**
+tmp/**
