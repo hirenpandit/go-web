@@ -14,7 +14,12 @@ func Handler() http.Handler {
 			log.Printf("websocket upgrade failed: %v", err)
 			return
 		}
-		defer conn.Close()
+		defer func(conn *websocket.Conn) {
+			err := conn.Close()
+			if err != nil {
+				log.Printf("websocket connection close failed: %v\n", err)
+			}
+		}(conn)
 		for {
 			mt, message, err := conn.ReadMessage()
 			if err != nil {
